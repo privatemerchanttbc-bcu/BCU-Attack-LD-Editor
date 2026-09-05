@@ -1,0 +1,3 @@
+BCU Attack LD Editor 1.0.1
+Verified BCU builds: 50302, 50808
+Launcher: BCU New Features.bat
