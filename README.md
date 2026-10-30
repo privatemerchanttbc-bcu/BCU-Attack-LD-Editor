@@ -2,6 +2,12 @@
 
 Edit attack ranges and drag their Near/Far edges directly in BCU's Animation Editor.
 
+## What's new in 1.0.2
+
+Fixed: on some BCU 0-5-8-8 jars, the LD controls never appeared in the Animation Editor. Those jars are a slightly different build of the same version, and the safety check turned the feature off. They are now supported when all the BCU code the feature needs is present.
+
+If you installed 1.0.1 and could not find the LD controls, run the new installer again. See the [changelog](CHANGELOG.md) for details.
+
 ## Install
 
 1. Close BCU.
