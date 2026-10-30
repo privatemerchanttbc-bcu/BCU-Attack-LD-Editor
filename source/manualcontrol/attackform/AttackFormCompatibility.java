@@ -219,11 +219,13 @@ public final class AttackFormCompatibility {
             }
         }
         String fingerprint = AttackFormBuildFingerprint.read(loader);
-        if (!AttackFormBuildFingerprint.verified(build.versionCode, fingerprint)) {
+        boolean fingerprintVerified = AttackFormBuildFingerprint.verified(build.versionCode, fingerprint);
+        if (!fingerprintVerified && !AttackFormBuildFingerprint.readable(fingerprint)) {
             compatible = false;
-            missing.add("unverified patch-target fingerprint=" + fingerprint);
+            missing.add("unreadable patch-target fingerprint=" + fingerprint);
         }
-        return new Report(PROFILE, build, compatible, groups, missing, fingerprint);
+        return new Report(PROFILE, build, compatible, groups, missing, fingerprint,
+                fingerprintVerified);
     }
 
     private static boolean isVerifiedVersion(int version) {
@@ -258,21 +260,25 @@ public final class AttackFormCompatibility {
         public final Map<String, GroupResult> groups;
         public final List<String> missing;
         public final String targetSha256;
+        public final boolean fingerprintVerified;
 
         private Report(String profile, BcuBuildInfo build, boolean compatible,
                        Map<String, GroupResult> groups, List<String> missing,
-                       String targetSha256) {
+                       String targetSha256, boolean fingerprintVerified) {
             this.profile = profile;
             this.build = build;
             this.compatible = compatible;
             this.targetSha256 = targetSha256;
+            this.fingerprintVerified = fingerprintVerified;
             this.groups = Collections.unmodifiableMap(
                     new LinkedHashMap<String, GroupResult>(groups));
             this.missing = Collections.unmodifiableList(new ArrayList<String>(missing));
         }
 
         public String summary() {
-            if (compatible) return "compatible profile=" + profile + " targetSha256=" + targetSha256;
+            if (compatible) return "compatible profile=" + profile + " targetSha256=" + targetSha256
+                    + (fingerprintVerified ? " build=verified"
+                    : " build=unverified-same-version (all contracts matched; patch anchors still checked)");
             return "incompatible profile=" + profile + " missing=" + join(missing);
         }
     }

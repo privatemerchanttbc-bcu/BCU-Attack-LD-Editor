@@ -38,6 +38,10 @@ final class AttackFormBuildFingerprint {
         }
     }
 
+    static boolean readable(String digest) {
+        return digest != null && digest.length() == 64;
+    }
+
     static boolean verified(int version, String digest) {
         return (version == 50808 && "2a993f0da2ebd1a809d98b45160d8fe1c3ba8aab24729ebcafa802dc68d1f67a".equals(digest))
                 || (version == 50302 && "685677a196e5e98819a12613db31ba584b0449c728d1aae7ecd099526055bcdd".equals(digest));

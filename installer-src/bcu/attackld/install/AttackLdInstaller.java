@@ -79,7 +79,7 @@ public final class AttackLdInstaller {
         delete(new File(root, LEGACY_UNINSTALL));
         delete(new File(module, LEGACY_LAUNCHER));
         write(new File(module, "INSTALL_VERSION.txt"),
-                "BCU Attack LD Editor 1.0.1\nInstalled: "
+                "BCU Attack LD Editor 1.0.2\nInstalled: "
                         + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "\n");
         write(new File(module, "README.txt"), installedReadme());
     }
@@ -194,7 +194,7 @@ public final class AttackLdInstaller {
                 + "Start BCU using BCU New Features.bat in the parent folder.\n"
                 + "The original BCU jar is never modified.\n"
                 + "Registration: " + FEATURE_DIR + "/" + REGISTRATION + "\n"
-                + "Unknown BCU builds are rejected safely by the compatibility gate.\n";
+                + "Unsupported BCU versions are rejected safely by the compatibility gate.\n";
     }
 
     private static File installerDir() {
